@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APEX — Charte graphique</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700;800&family=Saira:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   APEX — CHARTE GRAPHIQUE  (inspirée des menus Apex Legends)
+   ============================================================ */
+:root{
+  /* fonds */
+  --bg:#0C0E13; --bg2:#12151C; --panel:#181B23; --panel2:#20242E; --panel3:#2A2F3B;
+  --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.15);
+  /* texte */
+  --white:#F2F4F8; --muted:#98A1B2; --muted2:#646C7D;
+  /* marque */
+  --red:#DA292A; --red2:#FF4536; --orange:#FF7A29; --orange2:#FFB36B;
+  /* accents fonctionnels */
+  --cyan:#38D6E0; --gold:#E8B23A; --violet:#9B7BFF; --green:#43D9A3;
+  /* raretés */
+  --r-common:#9AA3B2; --r-rare:#4A90D9; --r-epic:#B14FE0; --r-legend:#E8A33D;
+  /* axes */
+  --ax-phys:#FF7A29; --ax-mental:#9B7BFF; --ax-intel:#38C9E0; --ax-sante:#43D9A3;
+  --disp:"Saira Condensed",-apple-system,"SF Pro Display","Arial Narrow",sans-serif;
+  --body:"Saira",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:var(--body);background:var(--bg);color:var(--white);
+  background-image:radial-gradient(1100px 500px at 50% -5%, rgba(218,41,42,.12), transparent 60%),
+                   radial-gradient(800px 500px at 50% 105%, rgba(255,122,41,.10), transparent 60%);
+  background-attachment:fixed;-webkit-font-smoothing:antialiased;padding:0 0 80px;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+h1,h2,h3,.disp{font-family:var(--disp);text-transform:uppercase;letter-spacing:.02em}
+
+/* slash diagonal réutilisable */
+.slash{clip-path:polygon(0 0,100% 0,100% 100%,14px 100%,0 calc(100% - 14px))}
+.slash-r{clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%)}
+
+/* ---------- header ---------- */
+.head{display:flex;align-items:center;gap:18px;padding:34px 0 10px;border-bottom:1px solid var(--line);margin-bottom:30px}
+.logo{width:54px;height:60px;flex:none;filter:drop-shadow(0 0 16px rgba(218,41,42,.5))}
+.head h1{font-size:40px;font-weight:800;line-height:1}
+.head .sub{color:var(--muted);font-size:14px;letter-spacing:.18em;text-transform:uppercase;font-family:var(--disp);margin-top:4px}
+
+/* ---------- sections ---------- */
+section{margin:42px 0}
+.sec-h{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.sec-h .n{font-family:var(--disp);font-size:13px;font-weight:700;color:var(--red2);background:rgba(218,41,42,.12);border:1px solid rgba(218,41,42,.35);padding:3px 9px;border-radius:4px}
+.sec-h h2{font-size:22px;font-weight:700}
+.sec-h .line{flex:1;height:1px;background:var(--line)}
+.note{color:var(--muted);font-size:13.5px;margin-top:-8px;margin-bottom:16px;line-height:1.5}
+
+/* ---------- palette ---------- */
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.sw{border-radius:10px;overflow:hidden;background:var(--panel);border:1px solid var(--line)}
+.sw .chip{height:62px}
+.sw .meta{padding:9px 11px}
+.sw .nm{font-weight:700;font-size:13px;font-family:var(--disp);text-transform:uppercase;letter-spacing:.02em}
+.sw .hex{color:var(--muted);font-size:11.5px;font-family:var(--body);margin-top:1px}
+
+/* ---------- typo ---------- */
+.typo{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:24px}
+.typo .row{display:flex;align-items:baseline;gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}
+.typo .row:last-child{border-bottom:none}
+.typo .tag{width:120px;flex:none;color:var(--muted);font-size:11px;font-family:var(--body);letter-spacing:.1em;text-transform:uppercase}
+.d1{font-family:var(--disp);font-weight:800;font-size:40px;text-transform:uppercase;line-height:1}
+.d2{font-family:var(--disp);font-weight:700;font-size:26px;text-transform:uppercase}
+.d3{font-family:var(--disp);font-weight:600;font-size:16px;text-transform:uppercase;letter-spacing:.06em;color:var(--orange2)}
+.b1{font-family:var(--body);font-weight:600;font-size:16px}
+.b2{font-family:var(--body);font-weight:400;font-size:14px;color:var(--muted)}
+
+/* ---------- boutons ---------- */
+.btns{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.btn{font-family:var(--disp);text-transform:uppercase;letter-spacing:.04em;font-weight:800;font-size:15px;padding:14px 26px;border:none;cursor:pointer;color:#fff}
+.btn-ready{background:linear-gradient(135deg,var(--orange),var(--red));box-shadow:0 8px 24px rgba(218,41,42,.35);position:relative}
+.btn-ready::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:#fff;opacity:.9}
+.btn-2{background:var(--panel2);box-shadow:inset 0 0 0 1px var(--line2)}
+.btn-ghost{background:transparent;box-shadow:inset 0 0 0 1px var(--line2);color:var(--muted)}
+.btn-sm{padding:9px 16px;font-size:13px}
+
+/* ---------- nav onglets ---------- */
+.topnav{display:flex;align-items:center;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.topnav .brandmini{font-family:var(--disp);font-weight:800;color:var(--red2);font-size:18px;padding-right:8px}
+.tab{font-family:var(--disp);text-transform:uppercase;font-weight:700;font-size:14px;color:var(--muted);padding:8px 14px;position:relative;letter-spacing:.04em}
+.tab.on{color:#fff}
+.tab.on::after{content:"";position:absolute;left:10px;right:10px;bottom:0;height:3px;background:var(--red);box-shadow:0 0 10px var(--red)}
+.topnav .coins{margin-left:auto;display:flex;gap:14px;color:var(--muted);font-size:13px;font-family:var(--disp);align-items:center}
+.coins b{color:var(--gold)}
+
+/* tab bar bas (mobile) */
+.tabbar{display:grid;grid-template-columns:repeat(5,1fr);background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;max-width:360px}
+.tb{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 0;color:var(--muted2);font-size:10px;font-family:var(--disp);text-transform:uppercase;letter-spacing:.04em}
+.tb .i{font-size:19px}
+.tb.on{color:var(--orange2)}
+.tb.on .i{filter:drop-shadow(0 0 6px rgba(255,122,41,.6))}
+
+/* ---------- cartes ---------- */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;position:relative;overflow:hidden}
+.card .top-accent{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--orange),var(--red))}
+.card .ey{font-family:var(--disp);text-transform:uppercase;letter-spacing:.14em;font-size:11px;color:var(--muted)}
+.card .big{font-family:var(--disp);font-weight:800;font-size:34px;line-height:1;margin:6px 0}
+.bar{height:9px;border-radius:5px;background:var(--panel3);overflow:hidden;margin-top:12px}
+.bar > i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--orange),var(--red))}
+.chal{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.chal:last-child{border-bottom:none}
+.chal .st{margin-left:auto;color:var(--gold)}
+
+/* ---------- rangs & divisions ---------- */
+.currank{display:flex;align-items:center;gap:22px;background:linear-gradient(135deg,var(--panel),var(--panel2));border:1px solid var(--line2);border-radius:14px;padding:20px 22px;margin-bottom:18px}
+.currank .em{width:110px;flex:none}
+.currank .ey{font-family:var(--disp);text-transform:uppercase;letter-spacing:.14em;font-size:11px;color:var(--muted)}
+.currank .rk{font-family:var(--disp);font-weight:800;font-size:30px;line-height:1;margin:4px 0 2px;color:var(--gold)}
+.currank .rp{color:var(--muted);font-size:13px}
+.ranks{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+.rk{border-radius:12px;background:var(--panel);border:1px solid var(--line);padding:16px 8px 13px;text-align:center;position:relative;overflow:hidden}
+.rk .glow{position:absolute;top:-10px;left:0;right:0;height:48px;opacity:.42;filter:blur(20px)}
+.rk .em{width:84px;margin:0 auto 5px;position:relative}
+.rk .nm{font-family:var(--disp);font-weight:700;font-size:14px;text-transform:uppercase}
+.rk .th{color:var(--muted);font-size:11px;margin-top:2px}
+.rtbl{width:100%;border-collapse:collapse;font-size:13px;background:var(--panel);border-radius:12px;overflow:hidden;border:1px solid var(--line);margin-top:18px}
+.rtbl th,.rtbl td{padding:10px;text-align:center;border-bottom:1px solid var(--line)}
+.rtbl thead th{font-family:var(--disp);text-transform:uppercase;font-size:12px;color:var(--muted);background:var(--panel2);letter-spacing:.04em}
+.rtbl td.tn{text-align:left;font-family:var(--disp);font-weight:700;text-transform:uppercase;font-size:13px;display:flex;align-items:center;gap:8px}
+.rtbl td.tn .mini{width:24px;height:27px;flex:none}
+.rtbl tr:last-child td{border-bottom:none}
+
+/* ---------- axes ---------- */
+.axes{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:13px}
+.axc{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;border-left:3px solid var(--c)}
+.axc .e{font-size:28px}
+.axc .n{font-family:var(--disp);font-weight:700;text-transform:uppercase;font-size:15px;margin-top:8px}
+.axc .d{color:var(--muted);font-size:12px;margin-top:2px}
+
+/* ---------- nova + skilltree + avatar ---------- */
+.showcase{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.scard{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+.scard .lbl{font-family:var(--disp);text-transform:uppercase;letter-spacing:.1em;font-size:12px;color:var(--muted)}
+.tree{display:flex;flex-direction:column;align-items:center;gap:6px}
+.node{width:54px;height:60px;position:relative}
+.node.lock{opacity:.4}
+.connector{width:3px;height:16px;background:linear-gradient(180deg,var(--orange),var(--red))}
+.connector.off{background:var(--panel3)}
+
+/* anims NOVA */
+.nova-float{animation:floaty 3.4s ease-in-out infinite}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.nova-shadow{animation:shad 3.4s ease-in-out infinite}
+@keyframes shad{0%,100%{transform:scaleX(1);opacity:.32}50%{transform:scaleX(.82);opacity:.2}}
+.nova-blink{animation:blink 4.2s ease-in-out infinite}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.08)}}
+
+.footer-note{margin-top:50px;padding:20px;border-radius:12px;background:rgba(255,122,41,.06);border:1px solid var(--line2);color:var(--muted);font-size:13.5px;line-height:1.6}
+.footer-note b{color:var(--white)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="head">
+    <div class="logo">
+      <svg viewBox="0 0 120 132" width="100%" height="100%"><path d="M60 4 L106 30 V82 L60 128 L14 82 V30 Z" fill="#DA292A"/><path d="M60 4 L106 30 V82 L60 128 L14 82 V30 Z" fill="#fff" opacity=".16"/><text x="60" y="80" font-size="42" text-anchor="middle" fill="#0C0E13" font-weight="900">▲</text></svg>
+    </div>
+    <div>
+      <h1>APEX — Charte graphique</h1>
+      <div class="sub">Système de design · inspiré des menus Apex Legends</div>
+    </div>
+  </div>
+
+  <!-- ============ COULEURS ============ -->
+  <section>
+    <div class="sec-h"><span class="n">01</span><h2>Couleurs</h2><div class="line"></div></div>
+    <p class="note">Fond bleu-charbon profond (jamais noir pur), <b>rouge Apex</b> en accent tranchant, orange comme énergie « feu ». Accents fonctionnels pour raretés, axes et rangs.</p>
+    <div class="swatches" id="swatches"></div>
+  </section>
+
+  <!-- ============ TYPO ============ -->
+  <section>
+    <div class="sec-h"><span class="n">02</span><h2>Typographie</h2><div class="line"></div></div>
+    <p class="note">Titres en <b>Saira Condensed</b>, capitales, très bold (look militaire/sci-fi). Texte courant en Saira, lisible. <i>(Polices chargées en ligne ; repli système hors-ligne.)</i></p>
+    <div class="typo">
+      <div class="row"><div class="tag">Display</div><div class="d1">Deviens Prédateur</div></div>
+      <div class="row"><div class="tag">Titre</div><div class="d2">Missions du jour</div></div>
+      <div class="row"><div class="tag">Eyebrow</div><div class="d3">Axe physique</div></div>
+      <div class="row"><div class="tag">Corps</div><div class="b1">Tu logges tes vraies performances, l'app calcule ton XP honnête.</div></div>
+      <div class="row"><div class="tag">Secondaire</div><div class="b2">Tu pourras modifier cela plus tard dans ton profil.</div></div>
+    </div>
+  </section>
+
+  <!-- ============ BOUTONS ============ -->
+  <section>
+    <div class="sec-h"><span class="n">03</span><h2>Boutons</h2><div class="line"></div></div>
+    <p class="note">Le bouton principal reprend le « READY » d'Apex : dégradé orange→rouge, liseré blanc, coin coupé.</p>
+    <div class="btns">
+      <button class="btn btn-ready slash">Logger une séance</button>
+      <button class="btn btn-2 slash">Secondaire</button>
+      <button class="btn btn-ghost slash">Ghost</button>
+      <button class="btn btn-ready btn-sm slash">＋ Ajouter</button>
+    </div>
+  </section>
+
+  <!-- ============ NAVIGATION ============ -->
+  <section>
+    <div class="sec-h"><span class="n">04</span><h2>Navigation</h2><div class="line"></div></div>
+    <p class="note">Barre d'onglets en capitales, soulignement rouge lumineux sur l'onglet actif (comme le menu Apex). En bas, la version mobile.</p>
+    <div class="topnav" style="margin-bottom:16px">
+      <span class="brandmini">⬢ APEX</span>
+      <span class="tab on">Accueil</span><span class="tab">Progrès</span><span class="tab">Missions</span><span class="tab">Cercle</span><span class="tab">Arbre</span>
+      <span class="coins">⬡ <b>1 240</b> &nbsp; 🔥 5</span>
+    </div>
+    <div class="tabbar">
+      <div class="tb on"><span class="i">🏠</span>Accueil</div>
+      <div class="tb"><span class="i">📈</span>Progrès</div>
+      <div class="tb"><span class="i">🎯</span>Missions</div>
+      <div class="tb"><span class="i">🌳</span>Arbre</div>
+      <div class="tb"><span class="i">👥</span>Cercle</div>
+    </div>
+  </section>
+
+  <!-- ============ CARTES ============ -->
+  <section>
+    <div class="sec-h"><span class="n">05</span><h2>Cartes & panneaux</h2><div class="line"></div></div>
+    <div class="cards">
+      <div class="card"><div class="top-accent"></div><div class="ey">Indice de force</div><div class="big">397</div><div class="b2">somme de tes 1RM estimés</div></div>
+      <div class="card"><div class="top-accent"></div><div class="ey">Défis du jour</div>
+        <div class="chal">Logger 1 séance <span class="st">+20★</span></div>
+        <div class="chal">Battre 1 record <span class="st">+30★</span></div>
+        <div class="chal">3 axes différents <span class="st">+15★</span></div>
+      </div>
+      <div class="card"><div class="top-accent"></div><div class="ey">Mission du mois</div><div class="d2" style="font-size:20px;margin:6px 0">Le Colosse</div><div class="b2">6 / 12 séances</div><div class="bar"><i style="width:50%"></i></div></div>
+    </div>
+  </section>
+
+  <!-- ============ RANGS & DIVISIONS ============ -->
+  <section>
+    <div class="sec-h"><span class="n">06</span><h2>Rangs & divisions</h2><div class="line"></div></div>
+    <p class="note">8 paliers × 4 divisions (IV→I), façon Ranked d'Apex. Emblèmes recréés en SVG (originaux). L'ornementation grossit : simple → ailes → couronne.</p>
+    <div class="currank">
+      <div class="em" id="cur-em"></div>
+      <div style="flex:1">
+        <div class="ey">Rang global</div>
+        <div class="rk" id="cur-rk">Or · Division III</div>
+        <div class="rp">6 480 XP — plus que 270 pour Or II</div>
+        <div class="bar"><i style="width:64%"></i></div>
+      </div>
+    </div>
+    <div class="ranks" id="ranks"></div>
+    <table class="rtbl" id="rtbl"></table>
+  </section>
+
+  <!-- ============ AXES ============ -->
+  <section>
+    <div class="sec-h"><span class="n">07</span><h2>Les 4 axes</h2><div class="line"></div></div>
+    <div class="axes" id="axes"></div>
+  </section>
+
+  <!-- ============ NOVA + ARBRE + AVATAR ============ -->
+  <section>
+    <div class="sec-h"><span class="n">08</span><h2>Composants signature</h2><div class="line"></div></div>
+    <div class="showcase">
+      <div class="scard"><div class="lbl">NOVA — mascotte</div><div id="nova"></div><div class="b2">Drone-IA : flotte, cligne, réagit.</div></div>
+      <div class="scard"><div class="lbl">Arbre de compétences</div><div class="tree" id="tree"></div><div class="b2">Nœuds hexagonaux, 2 pts / niveau.</div></div>
+      <div class="scard"><div class="lbl">Avatar (hexa)</div><div id="avatar" style="width:120px"></div><div class="b2">Cadre hexagonal, couleur de signature.</div></div>
+    </div>
+  </section>
+
+  <div class="footer-note">
+    🎨 <b>C'est la fondation visuelle de toute l'app.</b> Si ça te plaît, j'applique cette charte à l'onboarding existant puis je construis l'accueil (onglets + arbre de compétences) dessus.<br><br>
+    Dis-moi ce que tu veux ajuster : la dominante (plus de <b>rouge</b> Apex ou garder l'<b>orange</b> ?), la typo, l'intensité des effets… On cale la charte d'abord, le reste en découle.
+  </div>
+</div>
+
+<script>
+/* données de la charte */
+const PAL=[
+  ['Fond','#0C0E13'],['Panneau','#181B23'],['Panneau 2','#20242E'],
+  ['Rouge Apex','#DA292A'],['Orange','#FF7A29'],['Orange clair','#FFB36B'],
+  ['Blanc','#F2F4F8'],['Gris muté','#98A1B2'],
+  ['Cyan','#38D6E0'],['Or','#E8B23A'],['Violet','#9B7BFF'],['Vert','#43D9A3'],
+];
+document.getElementById('swatches').innerHTML=PAL.map(([n,h])=>`
+  <div class="sw"><div class="chip" style="background:${h}"></div><div class="meta"><div class="nm">${n}</div><div class="hex">${h}</div></div></div>`).join('');
+
+const TIERS=[
+  {n:'Rookie',c:'#8A93A3',cfg:{}},{n:'Bronze',c:'#B0763C',cfg:{}},
+  {n:'Argent',c:'#C9D2DA',cfg:{wings:1}},{n:'Or',c:'#E8B23A',cfg:{wings:1,ring:1}},
+  {n:'Platine',c:'#46CFC4',cfg:{wings:1,tech:1}},{n:'Diamant',c:'#6CA8E8',cfg:{wings:1,tech:1,sharp:1}},
+  {n:'Master',c:'#B14FE0',cfg:{wings:2,ring:1}},{n:'Prédateur',c:'#D8362B',cfg:{wings:2,ring:1,crown:1}},
+];
+const RP=[['Rookie',[0,250,500,750]],['Bronze',[1000,1500,2000,2500]],['Argent',[3000,3500,4000,4500]],['Or',[5250,6000,6750,7500]],['Platine',[8250,9000,10000,11000]],['Diamant',[12000,13000,14000,15000]],['Master',['16 000','','','']],['Prédateur',['17 000+','','','']]];
+const RTHRESH={Rookie:'0',Bronze:'1 000',Argent:'3 000',Or:'5 250',Platine:'8 250',Diamant:'12 000',Master:'16 000','Prédateur':'17 000+'};
+let _uid=0;
+function emblem(c,cfg,division){
+  cfg=cfg||{};const u='e'+(_uid++);const dark='#13161D';let orn='';
+  if(cfg.wings){const n=cfg.wings===2?4:3,big=cfg.wings===2?10:0;let L='',R='';
+    for(let i=0;i<n;i++){const len=32-i*5+big,y=64+i*10,ty=y-10;
+      L+=`<path d="M26 ${y} L${26-len} ${ty} L${26-len+10} ${ty+6} Z" fill="${c}" opacity="${(0.9-i*0.17).toFixed(2)}"/>`;
+      R+=`<path d="M114 ${y} L${114+len} ${ty} L${114+len-10} ${ty+6} Z" fill="${c}" opacity="${(0.9-i*0.17).toFixed(2)}"/>`;}
+    orn+=L+R;}
+  if(cfg.ring){orn+=`<circle cx="70" cy="70" r="53" fill="none" stroke="${c}" stroke-width="2" opacity=".5"/>`;}
+  if(cfg.crown){orn+=`<g><path d="M52 24 L58 8 L64 22 L70 4 L76 22 L82 8 L88 24 Z" fill="${c}" stroke="#7a0f0a" stroke-width="1"/><path d="M44 34 Q34 24 40 44 Q48 40 52 48" fill="none" stroke="${c}" stroke-width="4" stroke-linecap="round"/><path d="M96 34 Q106 24 100 44 Q92 40 88 48" fill="none" stroke="${c}" stroke-width="4" stroke-linecap="round"/></g>`;}
+  const ring2=cfg.tech?`<circle cx="70" cy="70" r="46" fill="none" stroke="${c}" stroke-width="2" stroke-dasharray="6 5" opacity=".7"/>`:'';
+  const tri=cfg.sharp?`<path d="M70 40 L96 96 L70 84 L44 96 Z" fill="${c}"/>`:`<path d="M70 40 L102 100 L38 100 Z M70 60 L88 94 L52 94 Z" fill="${c}" fill-rule="evenodd"/>`;
+  return `<svg viewBox="0 0 140 150" width="100%" style="overflow:visible;display:block">
+    <defs><radialGradient id="${u}" cx="50%" cy="38%" r="62%"><stop offset="0" stop-color="#262b36"/><stop offset="1" stop-color="${dark}"/></radialGradient></defs>
+    ${orn}<circle cx="70" cy="70" r="48" fill="${dark}" stroke="${c}" stroke-width="3"/><circle cx="70" cy="70" r="44" fill="url(#${u})"/>
+    ${[...Array(7)].map((_,i)=>`<line x1="26" y1="${52+i*7}" x2="114" y2="${52+i*7}" stroke="#000" stroke-width="1.4" opacity=".18"/>`).join('')}
+    ${ring2}${tri}
+    <g><rect x="50" y="106" width="40" height="22" rx="3" fill="#0C0E13" stroke="${c}" stroke-width="1.5"/><text x="70" y="121" font-family="Saira Condensed,sans-serif" font-size="13" font-weight="800" fill="${c}" text-anchor="middle">${division||''}</text></g>
+  </svg>`;}
+document.getElementById('ranks').innerHTML=TIERS.map(t=>{const div=(t.n==='Master'||t.n==='Prédateur')?'★':'IV';
+  return `<div class="rk"><div class="glow" style="background:${t.c}"></div><div class="em">${emblem(t.c,t.cfg,div)}</div><div class="nm" style="color:${t.c}">${t.n}</div><div class="th">${RTHRESH[t.n]} XP</div></div>`;}).join('');
+document.getElementById('cur-em').innerHTML=emblem('#E8B23A',{wings:1,ring:1},'III');
+const _mini=(c,cfg)=>`<span class="mini">${emblem(c,cfg,'')}</span>`;
+document.getElementById('rtbl').innerHTML=`<thead><tr><th style="text-align:left">Palier</th><th>IV</th><th>III</th><th>II</th><th>I</th></tr></thead><tbody>`+RP.map(([n,v])=>{const t=TIERS.find(x=>x.n===n);return `<tr><td class="tn">${_mini(t.c,t.cfg)}<span style="color:${t.c}">${n}</span></td>`+v.map(x=>`<td>${x===''?'—':x}</td>`).join('')+`</tr>`;}).join('')+`</tbody>`;
+
+const AXES=[['🏋️','Physique','Force & énergie','#FF7A29'],['🧠','Mental','Calme & focus','#9B7BFF'],['📚','Intellect','Savoir & curiosité','#38C9E0'],['🌙','Santé','Récup & sommeil','#43D9A3']];
+document.getElementById('axes').innerHTML=AXES.map(([e,n,d,c])=>`
+  <div class="axc" style="--c:${c}"><div class="e">${e}</div><div class="n">${n}</div><div class="d">${d}</div></div>`).join('');
+
+/* NOVA */
+function nova(size){const u='n0';const eyeC='#5FE6F2';
+ return `<svg viewBox="0 0 120 120" width="${size}" style="overflow:visible;display:block">
+  <defs><linearGradient id="bg${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A3140"/><stop offset="1" stop-color="#181C26"/></linearGradient>
+  <radialGradient id="eg${u}" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#bdf6fc"/><stop offset="1" stop-color="${eyeC}"/></radialGradient></defs>
+  <ellipse class="nova-shadow" cx="60" cy="113" rx="26" ry="5" fill="#000" style="transform-origin:60px 113px"/>
+  <g class="nova-float">
+    <line x1="60" y1="16" x2="60" y2="6" stroke="#3a4150" stroke-width="3"/><circle cx="60" cy="5" r="4" fill="#FF7A29"><animate attributeName="opacity" values="1;.4;1" dur="1.8s" repeatCount="indefinite"/></circle>
+    <ellipse cx="34" cy="92" rx="10" ry="5" fill="#FF7A29" opacity=".5"/><ellipse cx="86" cy="92" rx="10" ry="5" fill="#FF7A29" opacity=".5"/>
+    <path d="M60 16 L96 36 Q100 38 100 44 V72 Q100 78 96 80 L66 98 Q60 101 54 98 L24 80 Q20 78 20 72 V44 Q20 38 24 36 Z" fill="url(#bg${u})" stroke="#FF7A29" stroke-width="2.5"/>
+    <path d="M30 50 Q60 42 90 50 L90 66 Q60 76 30 66 Z" fill="#0E1117"/>
+    <g class="nova-blink" style="transform-origin:60px 58px"><ellipse cx="60" cy="58" rx="12" ry="14" fill="url(#eg${u})"/><circle cx="64" cy="52" r="3.6" fill="#fff" opacity=".85"/></g>
+  </g></svg>`;}
+document.getElementById('nova').innerHTML=nova(120);
+
+/* arbre de compétences (nœuds hexa) */
+function skillNode(c,icon,lock){return `<div class="node ${lock?'lock':''}"><svg viewBox="0 0 54 60" width="100%"><path d="M27 2 L50 15 V45 L27 58 L4 45 V15 Z" fill="${lock?'#20242E':'#181B23'}" stroke="${lock?'#39404e':c}" stroke-width="2.5"/></svg>
+  <div style="position:absolute;inset:0;display:grid;place-items:center;font-size:20px">${icon}</div></div>`;}
+document.getElementById('tree').innerHTML=
+  skillNode('#FF7A29','⚡',false)+`<div class="connector"></div>`+
+  skillNode('#FF7A29','💪',false)+`<div class="connector off"></div>`+
+  skillNode('#646C7D','🔒',true);
+
+/* avatar hexa */
+function avatarSVG(ac){return `<svg viewBox="0 0 100 110"><defs><clipPath id="hxC"><path d="M50 5 L88 28 V72 L50 95 L12 72 V28 Z"/></clipPath></defs>
+  <path d="M50 5 L88 28 V72 L50 95 L12 72 V28 Z" fill="#12151C" stroke="${ac}" stroke-width="2.5"/>
+  <g clip-path="url(#hxC)"><rect x="12" y="62" width="76" height="40" fill="${ac}" opacity=".18"/><path d="M30 98 Q50 70 70 98 Z" fill="${ac}" opacity=".32"/>
+  <circle cx="50" cy="48" r="16" fill="#E8B98C"/><path d="M34 45 Q35 25 50 25 Q65 25 66 45 Q59 37 50 37 Q41 37 34 45 Z" fill="#3A2A1C"/>
+  <circle cx="44" cy="48" r="1.7" fill="#15171f"/><circle cx="56" cy="48" r="1.7" fill="#15171f"/></g></svg>`;}
+document.getElementById('avatar').innerHTML=avatarSVG('#DA292A');
+</script>
+</body>
+</html>
