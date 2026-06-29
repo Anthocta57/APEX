@@ -1,0 +1,5 @@
+# macOS
+.DS_Store
+
+# Outils de prévisualisation locaux (chemins spécifiques à la machine)
+.claude/
