@@ -244,8 +244,35 @@ const AXES=[
   {key:'intellect',name:'Intellect',short:'Intellect',icon:'📚',c:'#3FC9E0'},
   {key:'sante',name:'Santé & Sommeil',short:'Santé',icon:'🌙',c:'#43D9A3'},
 ];
-const RANKS=['Bronze','Argent','Or','Platine','Diamant','Master','Prédateur'];
-const RANKC={Bronze:'#CD7F32',Argent:'#C9D0DA',Or:'#FFC53D',Platine:'#7BE4FF',Diamant:'#B9A7FF',Master:'#FF8A6A','Prédateur':'#DA292A'};
+const RANKS=['Rookie','Bronze','Argent','Or','Platine','Diamant','Master','Prédateur'];
+const RANKC={Rookie:'#8A93A3',Bronze:'#B0763C',Argent:'#C9D2DA',Or:'#E8B23A',Platine:'#46CFC4',Diamant:'#6CA8E8',Master:'#B14FE0','Prédateur':'#D8362B'};
+const RCFG={Rookie:{},Bronze:{},Argent:{wings:1},Or:{wings:1,ring:1},Platine:{wings:1,tech:1},Diamant:{wings:1,tech:1,sharp:1},Master:{wings:2,ring:1},'Prédateur':{wings:2,ring:1,crown:1}};
+// table des seuils XP -> rang + division (reprise de la table Apex)
+const RSTEPS=(function(){const base={Rookie:0,Bronze:1000,Argent:3000,Or:5250,Platine:8250,Diamant:12000},inc={Rookie:250,Bronze:500,Argent:500,Or:750,Platine:[750,1000,1000],Diamant:1000},out=[];
+  ['Rookie','Bronze','Argent','Or','Platine','Diamant'].forEach(t=>{let xp=base[t];['IV','III','II','I'].forEach((d,i)=>{out.push([xp,t,d]);if(i<3){const st=Array.isArray(inc[t])?inc[t][i]:inc[t];xp+=st;}});});
+  out.push([16000,'Master','★']);out.push([17000,'Prédateur','★']);return out;})();
+function globalRank(xp){let cur=RSTEPS[0],nxt=null;for(let i=0;i<RSTEPS.length;i++){if(xp>=RSTEPS[i][0]){cur=RSTEPS[i];nxt=RSTEPS[i+1]||null;}}
+  const into=xp-cur[0],span=nxt?nxt[0]-cur[0]:1;
+  return {tier:cur[1],div:cur[2],color:RANKC[cur[1]],cfg:RCFG[cur[1]],nextXp:nxt?nxt[0]:null,nextLabel:nxt?nxt[1]+' '+nxt[2]:'Max',frac:Math.min(1,into/span)};}
+function levelFromXp(xp){let L=1,acc=0,cost=100;while(acc+cost<=xp){acc+=cost;L++;cost*=1.15;}return {level:L,into:xp-acc,need:cost,frac:(xp-acc)/cost};}
+// emblème de rang (SVG original, identique à la charte)
+let _emU=0;
+function emblem(c,cfg,division,size){cfg=cfg||{};const u='e'+(_emU++),dark='#13161D';let orn='';
+  if(cfg.wings){const n=cfg.wings===2?4:3,big=cfg.wings===2?10:0;let L='',R='';
+    for(let i=0;i<n;i++){const len=32-i*5+big,y=64+i*10,ty=y-10;
+      L+=`<path d="M26 ${y} L${26-len} ${ty} L${26-len+10} ${ty+6} Z" fill="${c}" opacity="${(0.9-i*0.17).toFixed(2)}"/>`;
+      R+=`<path d="M114 ${y} L${114+len} ${ty} L${114+len-10} ${ty+6} Z" fill="${c}" opacity="${(0.9-i*0.17).toFixed(2)}"/>`;}orn+=L+R;}
+  if(cfg.ring)orn+=`<circle cx="70" cy="70" r="53" fill="none" stroke="${c}" stroke-width="2" opacity=".5"/>`;
+  if(cfg.crown)orn+=`<g><path d="M52 24 L58 8 L64 22 L70 4 L76 22 L82 8 L88 24 Z" fill="${c}" stroke="#7a0f0a" stroke-width="1"/><path d="M44 34 Q34 24 40 44 Q48 40 52 48" fill="none" stroke="${c}" stroke-width="4" stroke-linecap="round"/><path d="M96 34 Q106 24 100 44 Q92 40 88 48" fill="none" stroke="${c}" stroke-width="4" stroke-linecap="round"/></g>`;
+  const ring2=cfg.tech?`<circle cx="70" cy="70" r="46" fill="none" stroke="${c}" stroke-width="2" stroke-dasharray="6 5" opacity=".7"/>`:'';
+  const tri=cfg.sharp?`<path d="M70 40 L96 96 L70 84 L44 96 Z" fill="${c}"/>`:`<path d="M70 40 L102 100 L38 100 Z M70 60 L88 94 L52 94 Z" fill="${c}" fill-rule="evenodd"/>`;
+  return `<svg viewBox="0 0 140 150" width="${size||'100%'}" style="overflow:visible;display:block">
+    <defs><radialGradient id="${u}" cx="50%" cy="38%" r="62%"><stop offset="0" stop-color="#262b36"/><stop offset="1" stop-color="${dark}"/></radialGradient></defs>
+    ${orn}<circle cx="70" cy="70" r="48" fill="${dark}" stroke="${c}" stroke-width="3"/><circle cx="70" cy="70" r="44" fill="url(#${u})"/>
+    ${[...Array(7)].map((_,i)=>`<line x1="26" y1="${52+i*7}" x2="114" y2="${52+i*7}" stroke="#000" stroke-width="1.4" opacity=".18"/>`).join('')}
+    ${ring2}${tri}
+    <g><rect x="50" y="106" width="40" height="22" rx="3" fill="#0C0E13" stroke="${c}" stroke-width="1.5"/><text x="70" y="121" font-family="-apple-system,sans-serif" font-size="13" font-weight="800" fill="${c}" text-anchor="middle">${division||''}</text></g>
+  </svg>`;}
 const ACCENTS=[['#FF7A29'],['#DA292A'],['#3FC9E0'],['#9B7BFF'],['#43D9A3'],['#FFC53D']];
 
 /* ====================== NOVA — mascotte drone-IA ====================== */
@@ -580,7 +607,7 @@ const RENDER={
     cta(footer,'Continuer',true,next);
   },
   projection(s,stage,footer){
-    const r=computeProfile(); const target=RANKS[Math.min(RANKS.length-1,2)];
+    const r=computeProfile(); const ti=RANKS.indexOf(r.rank.tier); const target=RANKS[Math.min(RANKS.length-2,Math.max(3,ti+3))];
     let d; try{ d=new Date(); d.setDate(d.getDate()+75); }catch(e){ d=null; }
     const when=d?`${MONTHS[d.getMonth()]} ${d.getFullYear()}`:'dans ~3 mois';
     stage.innerHTML=`<div class="kick">Projection NOVA</div>
@@ -600,12 +627,14 @@ const RENDER={
   },
   reveal(s,stage,footer){
     const r=computeProfile();
-    stage.innerHTML=`<div class="middle"><div class="kick">Profil calibré</div>
-      <div style="width:140px;height:154px;margin:6px 0 12px">${bigHex(P.accent||'#FF7A29')}</div>
-      <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em">Indice APEX de départ</div>
-      <div class="indice">${r.indice}</div>
-      <div class="axranks" style="width:100%">${AXES.map(a=>`<div class="arc"><div class="ae">${a.icon}</div><div style="flex:1"><div class="an">${a.short}</div><div class="ar" style="color:${RANKC[r.ranks[a.key]]}">${r.ranks[a.key]}</div></div></div>`).join('')}</div>
-      <p class="sub" style="text-align:center">Bienvenue dans l'arène, <b style="color:#fff">${P.name||'Légende'}</b>. ${r.missions.length} missions t'attendent.</p></div>`;
+    const pill=t=>`<span style="display:inline-flex;align-items:center;gap:6px;padding:6px 13px;border-radius:999px;background:var(--panel2);box-shadow:inset 0 0 0 1px var(--line);font-weight:800;font-size:13px">${t}</span>`;
+    stage.innerHTML=`<div class="middle"><div class="kick">Profil calibré · ton rang de départ</div>
+      <div style="width:152px;margin:4px 0 8px">${emblem(r.rank.color,r.rank.cfg,r.rank.div)}</div>
+      <div style="font-size:44px;font-weight:850;line-height:1;color:${r.rank.color}">${r.rank.tier}</div>
+      <div style="font-weight:800;letter-spacing:.14em;color:var(--muted);margin-top:4px">DIVISION ${r.rank.div}</div>
+      <div style="display:flex;gap:12px;justify-content:center;margin:18px 0 6px">${pill('⬡ Niveau '+r.lvl.level)}${pill('⚡ Indice '+r.indice)}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:6px">${AXES.map(a=>`<span style="font-size:12px;font-weight:700;padding:6px 11px;border-radius:999px;background:var(--panel);box-shadow:inset 0 0 0 1px var(--line);border-left:3px solid ${a.c}">${a.icon} ${a.short}</span>`).join('')}</div>
+      <p class="sub" style="text-align:center;margin-top:16px">Bienvenue dans l'arène, <b style="color:#fff">${P.name||'Légende'}</b>. ${r.missions.length} missions t'attendent.</p></div>`;
     cta(footer,'Entrer dans APEX',true,()=>{ try{localStorage.setItem('apex_done','1');}catch(e){} next(); });
     confetti();
   },
@@ -640,9 +669,14 @@ function computeProfile(){
   const ih=(P.intel_habits||[]).filter(h=>h!=='rien').length;
   const intel=(ih/3)*55 + (6-(P.intel_screen||3))/5*35;
   const sante=((P.sleep_quality||3)/5)*60 + Math.min(30,((P.sleep_hours||7)/8)*30);
-  const ranks={physique:rankFromScore(phys),mental:rankFromScore(mental),intellect:rankFromScore(intel),sante:rankFromScore(sante)};
+  const scores={physique:Math.round(phys),mental:Math.round(mental),intellect:Math.round(intel),sante:Math.round(sante)};
   const indice=Math.round((phys+mental+intel+sante)/4*4.2);
-  return {ranks,indice,missions:generateMissions()};
+  // XP de calibration : ton rang de départ reflète ton profil (fixé une seule fois)
+  const startXP=Math.round((phys+mental+intel+sante)*9);
+  if(P.calibXP===undefined){ P.calibXP=startXP; save(); }
+  const rankXP=(P.calibXP||startXP)+(P.earnedXP||0);   // earnedXP montera avec les missions
+  const rank=globalRank(rankXP), lvl=levelFromXp(P.earnedXP||0);
+  return {scores,indice,startXP,rankXP,rank,lvl,missions:generateMissions()};
 }
 const MLIB={
   physique:[{icon:'🚶',t:'10 000 pas aujourd\'hui',xp:20},{icon:'💪',t:'3 séries de pompes',xp:15},{icon:'🏃',t:'20 min de cardio',xp:25}],
@@ -659,11 +693,21 @@ function confetti(){ const cols=['#FF7A29','#FFB36B','#FFC53D','#3FC9E0','#9B7BF
 /* ====================== HUB ====================== */
 function renderHub(){
   const r=computeProfile(); const ac=P.accent||'#FF7A29';
+  const toNext=r.rank.nextXp?`${r.rank.nextXp-r.rankXP} XP avant ${r.rank.nextLabel}`:'Rang maximum atteint';
   frame.innerHTML=`<div class="hub enter-right">
     <div class="hubhead"><div class="hubAv">${avatarSVG(P.avatar||0,ac)}</div>
-      <div style="flex:1"><div class="hubName">${P.name||'Légende'}</div><div class="hubMeta">Indice APEX <b style="color:#fff">${r.indice}</b> · Niveau 1</div></div>
-      <div class="hbadge">⬡ Recrue</div></div>
-    <div class="axisbar">${AXES.map(a=>`<div class="axb" style="--c:${a.c}"><div class="e">${a.icon}</div><div class="n">${a.short}</div><div class="r" style="color:${RANKC[r.ranks[a.key]]}">${r.ranks[a.key]}</div></div>`).join('')}</div>
+      <div style="flex:1"><div class="hubName">${P.name||'Légende'}</div><div class="hubMeta">Niveau <b style="color:#fff">${r.lvl.level}</b> · Indice ${r.indice}</div></div>
+      <div class="hbadge">⬡ ${r.rank.tier}</div></div>
+    <div style="display:flex;align-items:center;gap:15px;background:var(--panel);box-shadow:inset 0 0 0 1px var(--line2);border-radius:14px;padding:14px 16px;margin-bottom:14px">
+      <div style="width:88px;flex:none">${emblem(r.rank.color,r.rank.cfg,r.rank.div)}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em">Rang global</div>
+        <div style="font-size:23px;font-weight:850;color:${r.rank.color}">${r.rank.tier} · Div. ${r.rank.div}</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:2px">${toNext}</div>
+        <div style="height:8px;border-radius:5px;background:var(--panel3);overflow:hidden;margin-top:9px"><i style="display:block;height:100%;width:${Math.round(r.rank.frac*100)}%;background:${r.rank.color}"></i></div>
+      </div>
+    </div>
+    <div class="axisbar">${AXES.map(a=>`<div class="axb" style="--c:${a.c}"><div class="e">${a.icon}</div><div class="n">${a.short}</div></div>`).join('')}</div>
     <div class="secth"><h3>Missions du jour</h3><span class="tag">générées pour toi</span></div>
     ${r.missions.map(m=>{const a=AXES.find(x=>x.key===m.axis);return `<div class="mission" style="--c:${m.c}"><div class="me">${m.icon}</div><div style="flex:1"><div class="mt">${m.t}</div><div class="ms">${a.icon} ${a.short}</div></div><div class="mx">+${m.xp} XP</div></div>`;}).join('')}
     <div class="hubnote">🚧 <b>QG provisoire.</b> Ton onboarding est terminé et ton profil est enregistré.<br><br>Prochaine étape : le <b>vrai accueil</b> (avatar + XP + streak + PV), les <b>4 étages de missions</b> (jour/semaine/mois/année) et l'<b>arbre de compétences</b> façon Valhalla.</div>
