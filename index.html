@@ -351,7 +351,7 @@ const STEPS=[
   // accroche
   {type:'pitch',kick:'Bienvenue',q:'Un seul terrain :<br><span class="hl">toi-même</span>',sub:'APEX transforme ta vie en jeu. Quatre fronts, des missions taillées pour toi, des rangs à gravir.',art:'axes'},
   {type:'pitch',kick:'Le moteur',q:'Des missions <span class="hl">pour toi</span>, chaque jour',sub:'Jour, semaine, mois, année : des objectifs adaptés à ton niveau. Tu valides, tu gagnes de l\'XP.',art:'time'},
-  {type:'pitch',kick:'La progression',q:'Monte en <span class="hl">rang</span>',sub:'De Bronze à Prédateur. Ton rang reflète tes vraies perfs.',art:'ladder'},
+  {type:'pitch',kick:'La progression',q:'Monte en <span class="hl">rang</span>',sub:'De Rookie à Prédateur. Ton rang reflète tes vraies perfs.',art:'ladder'},
   {type:'pitch',kick:'Ton identité',q:'Un avatar qui <span class="hl">évolue</span>',sub:'Il grandit à chaque rang. Le reflet vivant de ta progression.',art:'avatarTease'},
   // NOVA
   {type:'guide',mood:'wave',text:'Salut ! Moi c\'est <b>NOVA</b>, ton IA d\'ascension. Je vais t\'accompagner dans l\'arène. 👋'},
@@ -648,7 +648,7 @@ function pitchArt(id){
     <div class="trow"><div style="font-size:22px">📅</div><div><div class="tt">Hebdo</div><div class="ts">Des défis sur la semaine</div></div></div>
     <div class="trow"><div style="font-size:22px">🗓️</div><div><div class="tt">Mensuel</div><div class="ts">Une grande mission par mois</div></div></div>
     <div class="trow"><div style="font-size:22px">🏔️</div><div><div class="tt">Annuel</div><div class="ts">Le Sommet : ton objectif de l'année</div></div></div></div>`;
-  if(id==='ladder') return `<div class="ladder">${RANKS.map((r,i)=>`<div class="lrow"><div class="lh">${hexSVG(RANKC[r])}</div><div class="ln">${r}</div><div class="lp">${['Le début','','','','','','Élite'][i]||''}</div></div>`).join('')}</div>`;
+  if(id==='ladder') return `<div class="ladder">${RANKS.map((r,i)=>`<div class="lrow"><div style="width:44px;flex:none">${emblem(RANKC[r],RCFG[r],'')}</div><div class="ln">${r}</div><div class="lp">${['Le début','','','','','','Élite','Sommet'][i]||''}</div></div>`).join('')}</div>`;
   if(id==='avatarTease') return `<div style="display:flex;gap:16px;align-items:center">${avatarSVG(0,'#FF7A29')}<div style="font-size:28px;color:var(--accent2)">➜</div>${avatarSVG(0,'#DA292A')}</div>`;
   return '';
 }
